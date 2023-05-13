@@ -3,7 +3,9 @@ package com.muchiri.reactiveprogramming.services;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
 import java.util.List;
+import java.util.Random;
 
 public class FluxAndMonoService {
 
@@ -15,9 +17,15 @@ public class FluxAndMonoService {
         return Flux.fromIterable(List.of("Mango", "Orange", "Banana")).map(String::toUpperCase);
     }
 
-    public Flux<String> fruitsFluxFilter(int num){
+    public Flux<String> fruitsFluxFilter(int num) {
         return Flux.fromIterable(List.of("Mango", "Orange", "Banana"))
                 .filter(fruit -> fruit.length() > num);
+    }
+
+    public Flux<String> fruitsFluxFlatMap() {
+        return Flux.fromIterable(List.of("Mango", "Orange", "Banana"))
+                .flatMap(fruit -> Flux.just(fruit.split("")))
+                .log();
     }
 
     public Mono<String> fruitMono() {
@@ -36,7 +44,7 @@ public class FluxAndMonoService {
         });
 
         fluxAndMonoService.fruitsFluxMap().subscribe(fruit -> {
-            System.out.println("Map-> Flux: "+fruit);
+            System.out.println("Map-> Flux: " + fruit);
         });
     }
 }

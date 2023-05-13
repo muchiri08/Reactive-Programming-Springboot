@@ -40,4 +40,12 @@ class FluxAndMonoServiceTest {
                 .expectNext("Orange", "Banana")
                 .verifyComplete();
     }
+
+    @Test
+    void fruitsFluxFlatMap() {
+        var fruitFluxFilter = fluxAndMonoService.fruitsFluxFlatMap();
+        StepVerifier.create(fruitFluxFilter)
+                .expectNextCount(17)
+                .verifyComplete();
+    }
 }
