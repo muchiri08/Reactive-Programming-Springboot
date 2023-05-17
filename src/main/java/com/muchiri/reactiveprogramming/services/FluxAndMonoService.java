@@ -28,6 +28,13 @@ public class FluxAndMonoService {
                 .log();
     }
 
+    public Flux<String> fruitsFluxFlatMapAsync() {
+        return Flux.fromIterable(List.of("Mango", "Orange", "Banana"))
+                .flatMap(fruit -> Flux.just(fruit.split(""))
+                        .delayElements(Duration.ofMillis(new Random().nextInt(1000))))
+                .log();
+    }
+
     public Mono<String> fruitMono() {
         return Mono.just("Mango");
     }

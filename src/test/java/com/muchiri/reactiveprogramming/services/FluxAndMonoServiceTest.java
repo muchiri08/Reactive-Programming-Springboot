@@ -48,4 +48,12 @@ class FluxAndMonoServiceTest {
                 .expectNextCount(17)
                 .verifyComplete();
     }
+
+    @Test
+    void fruitsFluxFlatMapAsync() {
+        var fruitFluxFilter = fluxAndMonoService.fruitsFluxFlatMapAsync();
+        StepVerifier.create(fruitFluxFilter)
+                .expectNextCount(17)
+                .verifyComplete();
+    }
 }
